@@ -1,0 +1,23 @@
+.rounded{
+    border-radius:12px;
+}
+.option{
+    cursor: pointer;
+}
+
+.red{
+    color:rgb(255, 0, 0);
+}
+.red:hover{
+    color: rgb(194, 56, 56);
+}
+.blue{
+    color:rgb(0, 0, 255);
+}
+.blue:hover{
+    color: rgb(52, 52, 194);
+}
+.date{
+    font-size: 12px;
+    color: gray;
+}
