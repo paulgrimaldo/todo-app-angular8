@@ -16,4 +16,13 @@ export class TodoRestService {
             .pipe(map((response: Response) => response.json()))
             .pipe(map(jsonTodos => jsonTodos.map((todo: { id: number; title: string; }) => new Todo(todo.id, todo.title, new Date))))
     }
+
+    public addTodo(todo: Todo) {
+        let todoJson = JSON.stringify(todo);
+        let params = "json=" + todoJson;
+        let headers = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
+        return this._http.post(this.url, params, { headers: headers })
+            .pipe(map((response: Response) => response.json()))
+            .pipe(map(todoJson => new Todo(-1, todo.title, todo.created_at)))
+    }
 }

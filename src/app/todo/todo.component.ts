@@ -18,8 +18,7 @@ export class TodoComponent implements OnInit {
 
     ngOnInit() {
         this.todo = new Todo(null, null, null);
-        //call from local service
-        //this.todos = this._todoService.getTodos();
+        //call from local service this.todos = this._todoService.getTodos();
         this._todoRestService.getTodos().subscribe(
             result => this.todos = result,
             error => {
