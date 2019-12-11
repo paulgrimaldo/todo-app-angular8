@@ -1,26 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { TodoService } from "./todo.service";
 import { TodoRestService } from "./todo_rest.service";
 import { Todo } from './todo';
-
+import { Observable } from 'rxjs';
+declare var $: any
 @Component({
     selector: 'todos',
     templateUrl: './todo.component.html',
     styleUrls: ['./todo.component.css'],
-    providers: [TodoService, TodoRestService]
+    providers: [TodoRestService]
 })
 
 export class TodoComponent implements OnInit {
-    private todos: Array<Todo>;
+    private todos: any[];
     private todo: Todo;
-    constructor(private _route: ActivatedRoute, private _router: Router, private _todoService: TodoService, private _todoRestService: TodoRestService) { }
+    constructor(private _route: ActivatedRoute, private _router: Router, private _todoRestService: TodoRestService) { }
 
     ngOnInit() {
         this.todo = new Todo(null, null, null);
-        //call from local service this.todos = this._todoService.getTodos();
         this._todoRestService.getTodos().subscribe(
-            result => this.todos = result,
+            result => this.todos = result.map((dbTodo) => {
+                let todoDocument = dbTodo.payload.doc;
+                return new Todo(todoDocument.id, todoDocument.data().tittle, new Date(todoDocument.data().created_at.seconds * 1000));
+            }),
             error => {
                 console.log(<any>error);
             }
@@ -33,15 +35,25 @@ export class TodoComponent implements OnInit {
         })
     }
 
-    onClickDeleteTodo(todoId: number) {
+    onClickDeleteTodo(todoId: string) {
         console.log(todoId);
     }
 
-    onClickEditTodo(todoId: number) {
+    onClickEditTodo(todoId: string) {
         console.log(todoId);
     }
 
     onClickAddTodo() {
-        this.todos.push(this.todo);
+        this.todo.created_at = new Date();
+        this._todoRestService.addTodo(this.todo);
+        this.closeAddTodoModal();
+    }
+
+    closeAddTodoModal(){
+        $('#modal-add-todo').modal('hide');
+    }
+
+    openAddTodoModal() {
+        $('#modal-add-todo').modal('show');
     }
 }

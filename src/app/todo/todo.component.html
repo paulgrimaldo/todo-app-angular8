@@ -2,9 +2,9 @@
     <div class="col-12 mt-5" align="center">
         <h3>Your todos</h3>
         <h6>All you have to do for now...</h6>
-        <div class="row mt-5">
+        <div class="row mt-3">
             <div class="col-12">
-                <button type="button" class="btn btn-outline-primary" style="border-radius: 20px;">Add Todo</button>
+                <button type="button" (click)="openAddTodoModal()" class="btn btn-outline-primary" style="border-radius: 20px;">Add Todo</button>
             </div>
             <div class="col-sm-12 col-md-6 offset-md-3" *ngFor="let todo of todos">
                 <div class="card mt-2">
@@ -21,30 +21,30 @@
 </div>
 
 
-<div class="modal" tabindex="-1" role="dialog">
+<div id="modal-add-todo" class="modal animated fadeIn" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add todo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form #formTodo="ngForm" (ngSubmit)="onClickAddTodo();formTodo.reset()">
+        <form #formTodo="ngForm" (ngSubmit)="onClickAddTodo();formTodo.reset()">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ADD YOUR NEW TODO</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
                     <div class="form-group">
-                        <input required type="text" name="title" #title="ngModel" [(ngModel)]="todo.title"
-                            class="form-control" aria-describedby="todoHelp" placeholder="Todo...">
+                        <label for="title">Type your todo and press add</label>
+                        <input style="border-radius: 10px;" required type="text" id="title" name="title" #title="ngModel" [(ngModel)]="todo.title" class="form-control" aria-describedby="todoHelp" placeholder="Write your todo ...">
                         <div class="invalid-feedback" *ngIf="title.touched && !title.valid">
                             Invalid todo title :(
                         </div>
                     </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="!formTodo.form.valid" type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button [disabled]="!formTodo.form.valid" type="button" class="btn btn-primary">Add</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>

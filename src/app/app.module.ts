@@ -9,6 +9,10 @@ import { ContactComponent } from "./contact/contact.component";
 import { TodoConvertorPipe } from "./pipes/todo_convertor.pipe";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from '@angular/http';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,10 @@ import { HttpModule } from '@angular/http';
     BrowserModule,
     routing,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]
