@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { routing, appRoutingProviders } from './app.routing';
 import { AppComponent } from './app.component';
 import { TodoComponent } from './todo/todo.component';
+import { AddTodoComponent } from './todo/add/add_todo.component';
+import { EditTodoComponent } from './todo/edit/edit_todo.component';
+import { DeleteTodoComponent } from './todo/delete/delete_todo.component';
 import { HomeComponent } from "./home/home.component";
 import { ErrorComponent } from "./error/error.component";
 import { ContactComponent } from "./contact/contact.component";
@@ -18,6 +21,9 @@ import { environment } from '../environments/environment';
   declarations: [
     AppComponent,
     TodoComponent,
+    AddTodoComponent,
+    EditTodoComponent,
+    DeleteTodoComponent,
     HomeComponent,
     ErrorComponent,
     ContactComponent,
